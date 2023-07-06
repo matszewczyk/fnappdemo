@@ -55,7 +55,7 @@ stages:
 
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
-      
+
 - stage: Test
   displayName: Test stage
   dependsOn: Build
@@ -82,7 +82,7 @@ stages:
 
 - stage: DeployDev
   displayName: Deploy to dev
-  dependsOn: Build
+  dependsOn: Test
   condition: succeeded()
 
   jobs:
