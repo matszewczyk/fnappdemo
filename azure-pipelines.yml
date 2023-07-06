@@ -84,7 +84,7 @@ stages:
 
 - stage: DeployQA
   displayName: Deploy to qa
-  dependsOn: Build
+  dependsOn: DeployDev
   condition: succeeded()
 
   jobs:
@@ -110,7 +110,7 @@ stages:
 
 - stage: DeployProd
   displayName: Deploy to prod
-  dependsOn: Build
+  dependsOn: DeployQA
   condition: succeeded()
 
   jobs:
