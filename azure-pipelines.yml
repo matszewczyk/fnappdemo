@@ -57,7 +57,7 @@ stages:
       artifact: drop
 
 - stage: Test
-  displayName: Test stage
+  displayName: Run Unit Tests
   dependsOn: Build
   condition: succeeded()
 
