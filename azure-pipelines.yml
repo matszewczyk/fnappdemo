@@ -55,6 +55,30 @@ stages:
 
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
+      
+- stage: Test
+  displayName: Test stage
+  dependsOn: Build
+  condition: succeeded()
+
+  jobs:
+  - job: Test
+    displayName: Test
+    pool:
+      vmImage: $(vmImageName)
+
+    steps:
+    - task: UsePythonVersion@0
+      displayName: 'Use Python 3.10.12'
+      inputs:
+        versionSpec: 3.10.12 
+
+    - task: CmdLine@2
+      displayName: 'Run unit tests'
+      inputs:
+        script: |
+          pip install pytest
+          pytest tests/
 
 - stage: DeployDev
   displayName: Deploy to dev
