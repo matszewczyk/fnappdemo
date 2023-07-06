@@ -7,6 +7,7 @@ trigger:
 - main
 
 variables:
+
   # Azure Resource Manager connection created during pipeline creation
   azureSubscription: 'fcba54f2-eb4d-4ac3-b705-42d3daaee2c2'
 
@@ -81,6 +82,7 @@ stages:
             displayName: 'Azure functions app deploy'
             inputs:
               azureSubscription: '$(azureSubscription)'
+              resourceGroupName: 'fnappdemo-dev'
               appType: functionAppLinux
               appName: $(functionAppName)
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
