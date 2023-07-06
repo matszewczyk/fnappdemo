@@ -11,7 +11,7 @@ variables:
   azureSubscription: 'fcba54f2-eb4d-4ac3-b705-42d3daaee2c2'
 
   # Function app name
-  functionAppName: 'fnappdemo123'
+  functionAppName: 'fnappdemo-dev'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -60,7 +60,7 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
 
-- stage: Deploy
+- stage: Deploy to predev
   displayName: Deploy stage
   dependsOn: Build
   condition: succeeded()
