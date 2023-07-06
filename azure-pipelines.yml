@@ -1,6 +1,11 @@
 trigger:
 - main
 
+paths:
+  exclude:
+    - README.md
+    - azure-pipelines.yaml
+
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
@@ -131,6 +136,17 @@ stages:
               appType: functionAppLinux
               appName: $(functionAppName)-qa
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+
+          - job: ManualReviewQA
+            displayName: 'Manual review'
+            dependsOn: Deploy
+            pool:
+              vmImage: $(vmImageName)
+            steps:
+            - task: ManualValidation@0
+              displayName: 'Manual review'
+              inputs:
+                instructions: 'Please review the deployment and approve or reject it.'
 
 - stage: DeployProd
   displayName: Deploy to prod
