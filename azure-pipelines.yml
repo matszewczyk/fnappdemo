@@ -60,8 +60,8 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
 
-- stage: Deploy to predev
-  displayName: Deploy stage
+- stage: Deploy
+  displayName: Deploy to dev
   dependsOn: Build
   condition: succeeded()
 
