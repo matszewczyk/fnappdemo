@@ -1,17 +1,21 @@
+
 trigger:
-- main
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
 
 variables:
-
-  # Azure Resource Manager connection created during pipeline creation
   azureSubscription: 'fcba54f2-eb4d-4ac3-b705-42d3daaee2c2'
-
-  # Function app name (without env suffix)
+  # Function app name (without env-specific suffix)
   functionAppName: 'fnappdemo'
-
+  
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
-
   # Working Directory
   workingDirectory: '$(System.DefaultWorkingDirectory)/'
 
