@@ -105,7 +105,7 @@ stages:
             displayName: 'Azure functions app deploy'
             inputs:
               azureSubscription: '$(azureSubscription)'
-              resourceGroupName: 'fnappdemo-dev'
+              resourceGroupName: $(functionAppName)-dev'
               appType: functionAppLinux
               appName: $(functionAppName)-dev
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
@@ -131,7 +131,7 @@ stages:
             displayName: 'Azure functions app deploy'
             inputs:
               azureSubscription: '$(azureSubscription)'
-              resourceGroupName: 'fnappdemo-qa'
+              resourceGroupName: $(functionAppName)-qa
               appType: functionAppLinux
               appName: $(functionAppName)-qa
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
@@ -157,7 +157,7 @@ stages:
             displayName: 'Azure functions app deploy'
             inputs:
               azureSubscription: '$(azureSubscription)'
-              resourceGroupName: 'fnappdemo-prod'
+              resourceGroupName: $(functionAppName)-prod
               appType: functionAppLinux
               appName: $(functionAppName)-prod
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
