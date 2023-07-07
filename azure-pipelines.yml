@@ -87,7 +87,7 @@ stages:
 - stage: DeployDev
   displayName: Deploy to dev
   dependsOn: Test
-  condition: succeeded()
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))  
 
   jobs:
   - deployment: Deploy
