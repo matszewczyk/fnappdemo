@@ -84,14 +84,14 @@ stages:
           pip install -r requirements.txt
           pytest tests/
 
-- stage: DeployDev
-  displayName: Deploy to dev
+- stage: Deploy
+  displayName: Deploy to all environments
   dependsOn: Test
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))  
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
   jobs:
-  - deployment: Deploy
-    displayName: Deploy
+  - deployment: DeployDev
+    displayName: Deploy to dev
     environment: 'development'
     pool:
       vmImage: $(vmImageName)
@@ -110,14 +110,8 @@ stages:
               appName: $(functionAppName)-dev
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
 
-- stage: DeployQA
-  displayName: Deploy to qa
-  dependsOn: DeployDev
-  condition: succeeded()
-
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
+  - deployment: DeployQA
+    displayName: Deploy to qa
     environment: 'qa'
     pool:
       vmImage: $(vmImageName)
@@ -136,14 +130,8 @@ stages:
               appName: $(functionAppName)-qa
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
 
-- stage: DeployProd
-  displayName: Deploy to prod
-  dependsOn: DeployQA
-  condition: succeeded()
-
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
+  - deployment: DeployProd
+    displayName: Deploy to prod
     environment: 'production'
     pool:
       vmImage: $(vmImageName)
